@@ -16,7 +16,7 @@ score0El.textContent = 0;
 score1El.textContent = 0;
 diceEl.classList.add('hidden');
 
-const scores = [0, 0];
+let scores = [0, 0];
 let currentScore = 0;
 let activePlayer = 0;
 let playing = true;
@@ -59,7 +59,7 @@ btnHold.addEventListener('click', function () {
       scores[activePlayer];
 
     //2. Check if player's score is >= 100
-    if (scores[activePlayer] >= 50) {
+    if (scores[activePlayer] >= 5) {
       // finish the game
       diceEl.classList.add('hidden');
       playing = false;
@@ -77,4 +77,24 @@ btnHold.addEventListener('click', function () {
 });
 
 //New game functionality
-btnNew.addEventListener('click', function () {});
+btnNew.addEventListener('click', function () {
+  //1. Clean player's scores
+  playing = true;
+  currentScore = 0;
+  scores = [0, 0];
+  score0El.textContent = currentScore;
+  score1El.textContent = currentScore;
+  //2. Clean current score
+  current0El.textContent = currentScore;
+  current1El.textContent = currentScore;
+
+  //3. Change player to player 1, meaning pink colour on player 1 and buttons active
+  document
+    .querySelector(`.player--${activePlayer}`)
+    .classList.remove('player--winner');
+  if (activePlayer === 1) {
+    activePlayer = 0;
+    player0El.classList.toggle('player--active');
+    player1El.classList.toggle('player--active');
+  }
+});
